@@ -1,4 +1,4 @@
 cssmin
 ======
 
-minify css
+minify css with clean-css
