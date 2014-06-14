@@ -1,0 +1,10 @@
+h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+}
+
+nav {
+  background: #00f;
+  padding: 15px;
+}

@@ -1,0 +1,25 @@
+{
+  "name": "cssmin",
+  "version": "0.0.1",
+  "description": "minify css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Fetool/cssmin.git"
+  },
+  "keywords": [
+    "cssmin",
+    "clean-css",
+    "minify",
+    "css"
+  ],
+  "author": "weilin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fetool/cssmin/issues"
+  },
+  "homepage": "https://github.com/Fetool/cssmin"
+}
