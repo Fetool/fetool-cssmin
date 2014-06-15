@@ -1,37 +1,30 @@
 var fs = require('fs');
-var Config = require('./config');
-var cssmin = module.exports = new CssMin(Config);
+var pth = require('path');
+var cssMin = module.exports = new CssMin;
 
-function CssMin (config) {
-  var path = config.src + '/' + config.default + '.html';
+function CssMin () {}
 
-  // var htmlReg = /(.*.html)|(.*.htm)/g;
-  var minHtmlReg = /\s*\r\n\s*/g;
-  var cssReg = /href=\".*\/([^\/\\\:\?]+)\.css/;
-  var commentReg = /<!--(.(\r\n)?)*-->/g;
-  var fstat = fs.statSync(config.src);
-  if (fstat.isDirectory()) {
-    fs.exists(path, function (err) {
-      var fileContent = fs.readFileSync(path, {encoding: 'utf-8'});
-      fileContent = fileContent.replace(commentReg, '');
-      var result = fileContent.match(cssReg);
-      console.log(result);
-    })
-  }
+CssMin.prototype.minify = function (files) {
+  var result = '', path = '', fstat = null;
+  var commentReg = /\/\*[\s\S]*\*\/|\/\/[\s\S]*/g,
+    minCssReg = /\s*\r\n\s*|\s*/g;
+  each(files, function (file) {
+    path = getAbsoultePath(file);
+    fstat = fs.statSync(path);
+    if (fstat.isFile()) {
+      content = fs.readFileSync(path, 'utf-8');
+      result += content.replace(commentReg, '').replace(minCssReg, '');
+    }
+  });
+  return result;
+};
 
-  // var dest = config.dest;
+CssMin.prototype.beautify = function () {
 
-  // var minReg = /(\r\n)|(\s+)/g;
+};
 
-  // var minContent = '', data ='';
-
-  // each(source, function (src) {
-  //   src = src + '.css';
-  //   data = fs.readFileSync(src, {encoding: 'utf-8'});
-  //   data = data.replace(minReg, '');
-  //   minContent += data;
-  // });
-  // console.log(minContent);
+function getAbsoultePath (source) {
+  return source && pth.normalize(process.cwd() + pth.sep + source);
 }
 
 function each (obj, iterator, context) {
